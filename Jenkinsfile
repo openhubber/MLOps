@@ -13,9 +13,9 @@ pipeline {
         }
         stage('Push to Docker Registry') {
             steps {
-                withDockerRegistry([credentialsId: 'docker-hub-credentials']) {
-                    sh 'docker tag fraud-detector mydockerhub/fraud-detector:latest'
-                    sh 'docker push mydockerhub/fraud-detector:latest'
+                withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://index.docker.io/v1/']) {
+                    sh 'docker tag fraud-detector openhubber/fraud-detector:latest'
+                    sh 'docker push openhubber/fraud-detector:latest'
                 }
             }
         }
