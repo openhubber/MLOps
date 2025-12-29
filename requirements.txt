@@ -10,3 +10,4 @@ numpy==2.4.0
 pyarrow==22.0.0
 scikit-learn==1.8.0
 scipy==1.16.3
+pytest>=7.0

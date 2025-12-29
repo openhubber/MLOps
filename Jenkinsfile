@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Run Unit Tests') {
             steps {
-                sh 'docker run fraud-detector pytest tests/'
+                sh 'pytest tests/'
             }
         }
         stage('Push to Docker Registry') {
