@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Run Unit Tests') {
             steps {
-                sh 'pytest tests/'
+                sh 'pytest'
             }
         }
         stage('Push to Docker Registry') {
