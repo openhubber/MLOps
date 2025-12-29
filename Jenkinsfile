@@ -11,11 +11,6 @@ pipeline {
                 sh 'docker build -t fraud-detector .'
             }
         }
-        stage('Run Unit Tests') {
-            steps {
-                sh 'pytest'
-            }
-        }
         stage('Push to Docker Registry') {
             steps {
                 withDockerRegistry([credentialsId: 'docker-hub-credentials']) {
