@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/openhubber/MLOps.git'
+                git branch: 'main', url: 'https://github.com/openhubber/MLOps.git'
             }
         }
         stage('Build Docker Image') {
