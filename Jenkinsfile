@@ -22,8 +22,12 @@ pipeline {
         }
         stage('Deploy Model') {
             steps {
-                sh 'docker run -d -p 8000:8080 mydockerhub/fraud-detector:latest'
+                sh '''
+                    REG=host.docker.internal:6000
+                    docker pull $REG/fraud-detector:latest
+                    docker rm -f fraud-detector || true
+                    docker run -d --name fraud-detector --rm -p 8000:8080 $REG/fraud-detector:latest
+                   '''
             }
         }
-    }
 }
