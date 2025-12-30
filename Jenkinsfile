@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Push to Docker Registry') {
             steps {
-                withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'http://host.docker.internal:6000']) {
+                withDockerRegistry([url: 'http://host.docker.internal:6000']) {
                     sh 'docker tag fraud-detector openhubber/fraud-detector:latest'
                     sh 'docker push openhubber/fraud-detector:latest'
                 }
