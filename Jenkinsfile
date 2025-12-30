@@ -14,7 +14,7 @@ pipeline {
         stage('Push to Private Registry') {
             steps {
                 sh '''
-                    REG=host.docker.internal:6000
+                    REG=http://host.docker.internal:6000
                     docker tag fraud-detector $REG/fraud-detector:latest
                     docker push $REG/fraud-detector:latest
                    '''
