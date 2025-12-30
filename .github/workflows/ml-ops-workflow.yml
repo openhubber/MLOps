@@ -1,0 +1,23 @@
+name: Fraud Detection CI/CD
+on:
+    push:
+        branches:
+            - main
+    schedule:
+        - cron: '0 0 1 * *' # Retrains the model monthly
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repository
+                uses: actions/checkout@v2
+            - name: Train Model
+                run: python model/model.py
+            - name: Build Docker Image
+                run: docker build -t fraud-detector .
+            - name: Push Docker Image to Registry
+                run: |
+                   docker tag fraud-detector host.docker.internal:6000/fraud-detector:latest
+                   docker push host.docker.internal:6000/fraud-detector:latest
+            - name: Deploy Model
+                run: docker run -d --name fraud-detector --rm -p 8000:8000 --network mlops-net host.docker.internal:6000/fraud-detector:latest
