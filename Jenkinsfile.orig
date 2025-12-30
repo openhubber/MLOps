@@ -11,13 +11,12 @@ pipeline {
                 sh 'docker build -t fraud-detector .'
             }
         }
-        stage('Push to Private Registry') {
+        stage('Push to Docker Registry') {
             steps {
-                sh '''
-                    REG=host.docker.internal:6000
-                    docker tag fraud-detector $REG/fraud-detector:latest
-                    docker push $REG/fraud-detector:latest
-                   '''
+                withDockerRegistry([url: 'http://host.docker.internal:6000']) {
+                    sh 'docker tag fraud-detector openhubber/fraud-detector:latest'
+                    sh 'docker push openhubber/fraud-detector:latest'
+                }
             }
         }
         stage('Deploy Model') {
