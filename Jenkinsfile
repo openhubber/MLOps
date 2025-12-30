@@ -26,7 +26,7 @@ pipeline {
                     REG=host.docker.internal:6000
                     docker pull $REG/fraud-detector:latest
                     docker rm -f fraud-detector || true
-                    docker run -d --name fraud-detector --rm -p 8000:8080 $REG/fraud-detector:latest
+                    docker run -d --name fraud-detector --rm -p 8000:8000 $REG/fraud-detector:latest
                    '''
             }
         }
