@@ -19,14 +19,6 @@ pipeline {
                 }
             }
         }
-        stage('Push to Docker Registry') {
-            steps {
-                withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://index.docker.io/v1/']) {
-                    sh 'docker tag fraud-detector openhubber/fraud-detector:latest'
-                    sh 'docker push openhubber/fraud-detector:latest'
-                }
-            }
-        }
         stage('Deploy Model') {
             steps {
                 sh 'docker run -d -p 8000:8080 mydockerhub/fraud-detector:latest'
